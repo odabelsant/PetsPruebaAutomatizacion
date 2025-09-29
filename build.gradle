@@ -1,0 +1,69 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Añadido JUnit4 para que @RunWith(Cucumber.class) sea ejecutable por Gradle
+    testImplementation 'junit:junit:4.13.2'
+
+    // (Se mantienen tus dependencias originales; dejé lo que tenías para evitar romper otras partes)
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation group: 'io.appium', name: 'java-client', version: '9.2.3'
+
+    testImplementation group: 'io.cucumber', name: 'cucumber-junit', version: '7.18.0'
+    testImplementation group: 'io.cucumber', name: 'cucumber-core', version: '7.18.0'
+    testImplementation group: 'io.cucumber', name: 'cucumber-java', version: '7.18.0'
+
+    testImplementation group: 'org.testng', name: 'testng', version: '7.10.1'
+
+    testImplementation 'org.apache.httpcomponents:httpclient:4.5.14'
+    testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.14.2'
+
+    testImplementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.20.0'
+    testImplementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+
+    implementation 'org.assertj:assertj-core:3.23.1'
+    testImplementation 'org.assertj:assertj-core:3.23.1'
+
+    testImplementation 'io.cucumber:cucumber-core:7.18.0'
+    testImplementation 'io.cucumber:cucumber-java:7.18.0'
+    testImplementation 'io.cucumber:cucumber-testng:7.18.0'
+    testImplementation 'io.cucumber:cucumber-junit:7.18.0'
+    testImplementation(platform('io.cucumber:cucumber-bom:7.18.0'))
+
+    testImplementation 'org.codehaus.janino:janino:3.1.9'
+    testImplementation 'ch.qos.logback:logback-classic:1.4.5'
+    testImplementation 'ch.qos.logback:logback-core:1.4.5'
+
+    testImplementation 'io.vavr:vavr:1.0.0-alpha-4'
+    testImplementation 'com.opencsv:opencsv:5.7.1'
+    testImplementation 'io.qameta.allure:allure-junit5:2.23.0'
+
+    testImplementation 'org.hamcrest:hamcrest:2.2'
+    testImplementation 'io.rest-assured:rest-assured:5.3.1'
+
+    testImplementation 'io.qameta.allure:allure-testng:2.29.0'
+    testImplementation 'io.qameta.allure:allure-commandline:2.29.0'
+    testImplementation 'io.qameta.allure:allure-cucumber7-jvm:2.29.0'
+    runtimeOnly 'org.aspectj:aspectjweaver:1.9.22.1'
+
+    testImplementation 'org.testng:testng:7.10.2'
+}
+
+test {
+    // <-- CAMBIO IMPORTANTE: ejecutar con el motor JUnit 4 para que @RunWith(Cucumber.class) funcione
+    useJUnit()
+
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+    }
+}
